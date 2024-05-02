@@ -1,8 +1,19 @@
 import unittest
 from equation import solve_quadratic
+import requests
 
 
 class TestQuadraticEquationSolver(unittest.TestCase):
+
+    # Проверка доступности страницы /index
+    def test_index_page_availability(self):
+        response = requests.get('http://localhost:5000/')
+        self.assertEqual(response.status_code, 200)
+
+    # Проверка доступности страницы /solve
+    def test_solve_page_availability(self):
+        response = requests.post('http://localhost:5000/solve', data={'a': '1', 'b': '2', 'c': '3'})
+        self.assertEqual(response.status_code, 200)
 
     # Проверка корней для уравнения с двумя действительными корнями
     def test_solve_quadratic_real_roots(self):
@@ -27,3 +38,5 @@ class TestQuadraticEquationSolver(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
